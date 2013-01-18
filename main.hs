@@ -12,7 +12,6 @@ main =
      cullFace $= Just Back
      rot <- newIORef $ MyRect 0.2 0.2 1 1 0
      displayCallback $= display rot
-     reshapeCallback $= Just reshape
      keyboardMouseCallback $= Just (mouse window rot)
      mainLoop
 
@@ -184,9 +183,3 @@ display rot =
      renderRect n
      swapBuffers
 
-reshape size@(Size w h) =
-  do viewport $= (Position 0 0, size)
-     matrixMode $= Projection
-     loadIdentity
-     perspective 30.0 (fromIntegral w / fromIntegral h) 1.0 100.0
-     lookAt (Vertex3 3.0 4.0 5.0) (Vertex3 0.0 0.0 0.0) (Vector3 0.0 1.0 0.0)
